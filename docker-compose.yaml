@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  api:
+    # Constrói a imagem a partir do Dockerfile no diretório atual.
+    build: .
+    # Mapeia a porta 8000 do seu computador para a porta 8000 do contêiner.
+    ports:
+      - "8000:8000"
+    container_name: apill
+    # Monta o código-fonte local no contêiner para desenvolvimento.
+    # As alterações no seu código serão refletidas instantaneamente.
+    volumes:
+      - .:/app
+    # Altera o comando padrão do Dockerfile para habilitar o live-reload do Uvicorn,
+    # que reinicia o servidor automaticamente quando um arquivo .py é alterado.
+    command:
+      ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
